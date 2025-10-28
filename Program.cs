@@ -10,7 +10,7 @@ while (running)
     Console.WriteLine("\n=== Hotel Room Manager ===");
     Console.WriteLine("1. Show occupied rooms");
     Console.WriteLine("2. Show available rooms");
-    Console.WriteLine("3. Exit");
+    Console.WriteLine("3. Book a room");
 
     string? input = Console.ReadLine();
     int choice = 0;
@@ -61,7 +61,9 @@ while (running)
                 }
                 break;
             }
-
+            case 3:
+            recp.BookGuest(); // Call the method
+            break;
         
 
         default:
