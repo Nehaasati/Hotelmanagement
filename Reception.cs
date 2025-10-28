@@ -49,7 +49,7 @@ public class Reception
         }
         return available;
     }
-     public void BookGuest()
+    public void BookGuest()
     {
         // enter a room number and guest name, then books the room if it exists and is available.
         // Validates input for room number and guest name and Updates the room's status to 'Occupied'or avialable  and store the guest name.
@@ -98,6 +98,55 @@ public class Reception
         targetRoom.status = RoomStatus.Occupied;
         targetRoom.GuestName = guestName;
         Console.WriteLine($"Room {roomNumber} booked successfully for {guestName}.");
+    }
+    
+    // Checks out a guest from a room by room number.
+    // Sets room status to Available and clears guest name.
+    
+    
+    
+    public bool CheckOutGuest(int roomNumber)
+    {
+        for (int i = 0; i < Rooms.Count; i++)
+        {
+            Room room = Rooms[i];
+            if (room.Room_Number == roomNumber)
+            {
+                if (room.status == RoomStatus.Occupied)
+                {
+                    room.status = RoomStatus.Available;
+                    room.GuestName = "";
+                    return true;
+                }
+                else
+                {
+                    return false; // Room is not occupied
+                }
+            }
+        }
+        return false; // Room not found
+    }
+
+    
+    public void CheckOutGuest1()
+    {
+        Console.Write("Enter room number to check out: ");
+        string? input = Console.ReadLine();
+
+        if (!int.TryParse(input, out int roomNumber))
+        {
+            Console.WriteLine("Invalid room number.");
+            return;
+        }
+
+        if (CheckOutGuest(roomNumber))
+        {
+            Console.WriteLine($"Guest checked out from room {roomNumber}.");
+        }
+        else
+        {
+            Console.WriteLine("Check-out failed. Room may not exist or is not occupied.");
+        }
     }
 
 }
