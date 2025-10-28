@@ -49,4 +49,55 @@ public class Reception
         }
         return available;
     }
+     public void BookGuest()
+    {
+        // enter a room number and guest name, then books the room if it exists and is available.
+        // Validates input for room number and guest name and Updates the room's status to 'Occupied'or avialable  and store the guest name.
+        Console.Write("Enter room number: ");
+        string? roomInput = Console.ReadLine();
+        if (!int.TryParse(roomInput, out int roomNumber))
+        {
+            Console.WriteLine("Invalid room number.");
+            return;
+        }
+
+        // Find the room
+        Room? targetRoom = null;
+        for (int i = 0; i < Rooms.Count; i++)
+        {
+            if (Rooms[i].Room_Number == roomNumber)
+            {
+                targetRoom = Rooms[i];
+                break;
+            }
+        }
+
+        if (targetRoom == null)
+        // room number is invalid
+        {
+            Console.WriteLine($"Room {roomNumber} does not exist.");
+            return;
+        }
+
+        if (targetRoom.status == RoomStatus.Occupied)
+        {
+            Console.WriteLine($"Room {roomNumber} is already occupied.");
+            return;
+        }
+
+        Console.Write("Enter guest name: ");
+        string? guestName = Console.ReadLine();
+
+        if (string.IsNullOrEmpty(guestName))//Guest name must not be null
+        {
+            Console.WriteLine("Guest name cannot be empty.");
+            return;
+        }
+
+        //  Book the room
+        targetRoom.status = RoomStatus.Occupied;
+        targetRoom.GuestName = guestName;
+        Console.WriteLine($"Room {roomNumber} booked successfully for {guestName}.");
+    }
+
 }
