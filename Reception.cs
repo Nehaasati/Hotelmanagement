@@ -24,16 +24,29 @@ public class Reception
     // return a list occupied where room status = occupied
 
     public List<Room> GetOccupiedRooms()
-{
-    List<Room> occupied = new List<Room>();
-    for (int i = 0; i < Rooms.Count; i = i + 1)
     {
-        Room room = Rooms[i];
-        if (room.status == RoomStatus.Occupied)
+        List<Room> occupied = new List<Room>();
+        for (int i = 0; i < Rooms.Count; i = i + 1)
         {
-            occupied.Add(room);
+            Room room = Rooms[i];
+            if (room.status == RoomStatus.Occupied)
+            {
+                occupied.Add(room);
+            }
         }
+        return occupied;
     }
-    return occupied;
-}
+    public List<Room> GetAvailableRooms()
+    {
+        List<Room> available = new List<Room>();
+        for (int i = 0; i < Rooms.Count; i = i + 1)
+        {
+            Room room = Rooms[i];
+            if (room.status == RoomStatus.Available)
+            {
+                available.Add(room);
+            }
+        }
+        return available;
+    }
 }
