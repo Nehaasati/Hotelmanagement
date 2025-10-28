@@ -4,7 +4,7 @@ public class Room
 {
     public int Room_Number;
     public RoomStatus status;
-    public string GuestName;
+    public string? GuestName;// no nullable 
 
 }
 
