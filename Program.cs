@@ -11,7 +11,7 @@ while (running)
     Console.WriteLine("1. Show occupied rooms");
     Console.WriteLine("2. Show available rooms");
     Console.WriteLine("3. Book a room");
-
+    Console.WriteLine("4. Check out guest");
     string? input = Console.ReadLine();
     int choice = 0;
     bool parsed = int.TryParse(input, out choice);
@@ -64,7 +64,9 @@ while (running)
             case 3:
             recp.BookGuest(); // Call the method
             break;
-        
+            case 4:
+            recp.CheckOutGuest1();
+            break;
 
         default:
             Console.WriteLine("Please choose a valid ");
