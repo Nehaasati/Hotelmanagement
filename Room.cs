@@ -17,5 +17,5 @@ public enum RoomStatus
 {
     Available,//free for book
     Occupied,//guest is stay
-   Unavailable// outb of service
+   Unavailable// out of service
 }
