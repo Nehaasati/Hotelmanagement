@@ -75,13 +75,13 @@ public class Reception
         if (targetRoom == null)
         // room number is invalid
         {
-            Console.WriteLine($"Room {roomNumber} does not exist.");
+            Console.WriteLine("Room {roomNumber} does not exist.");
             return;
         }
 
         if (targetRoom.status == RoomStatus.Occupied)
         {
-            Console.WriteLine($"Room {roomNumber} is already occupied.");
+            Console.WriteLine("Room {roomNumber} is already occupied.");
             return;
         }
 
@@ -97,12 +97,11 @@ public class Reception
         //  Book the room
         targetRoom.status = RoomStatus.Occupied;
         targetRoom.GuestName = guestName;
-        Console.WriteLine($"Room {roomNumber} booked successfully for {guestName}.");
+        Console.WriteLine("Room {roomNumber} booked successfully for {guestName}.");
     }
     
     // Checks out a guest from a room by room number.
     // Sets room status to Available and clears guest name.
-    
     
     
     public bool CheckOutGuest(int roomNumber)
@@ -112,10 +111,10 @@ public class Reception
             Room room = Rooms[i];
             if (room.Room_Number == roomNumber)
             {
-                if (room.status == RoomStatus.Occupied)
+                if (room.status == RoomStatus.Occupied)//room is occupied , now guest leave so room again available
                 {
                     room.status = RoomStatus.Available;
-                    room.GuestName = "";
+                    room.GuestName = "";  // make empty guest name
                     return true;
                 }
                 else
@@ -127,7 +126,7 @@ public class Reception
         return false; // Room not found
     }
 
-    
+
     public void CheckOutGuest1()
     {
         Console.Write("Enter room number to check out: ");
@@ -149,4 +148,87 @@ public class Reception
         }
     }
 
+    //marks a room as Unavailable (e.g., for maintenance). Cannot mark a room as unavailable if it is currently occupied.
+    public bool MarkRoomUnavailable(int roomNumber)
+    {
+        for (int i = 0; i < Rooms.Count; i++)
+        {
+            Room room = Rooms[i];
+            if (room.Room_Number == roomNumber)
+            {
+                if (room.status == RoomStatus.Occupied)//check  room are alredy occupied
+                {
+                    Console.WriteLine("Cannot mark an occupied room as unavailable.");
+                    return false;
+                }
+                room.status = RoomStatus.Unavailable;// if avaible start maintence
+                room.GuestName = ""; // Ensure no guest name
+                return true;
+            }
+        }
+        return false; // Room not found
+    }
+
+
+    // if it is free mark room as unavailable
+    public void MarkRoomUnavailable1()
+    {
+        Console.Write("Enter room number to mark as unavailable (e.g., for maintenance): ");
+        if (int.TryParse(Console.ReadLine(), out int roomNumber))
+        {
+            if (MarkRoomUnavailable(roomNumber))
+            {
+                Console.WriteLine($"Room {roomNumber} is now marked as unavailable.");
+            }
+            else
+            {
+                Console.WriteLine($"Failed to mark room {roomNumber} as unavailable.");
+            }
+        }
+        else
+        {
+            Console.WriteLine("Invalid room number.");
+        }
+    }
+    //make unavailable room to available after maintance is completed
+    public bool MakeRoomAvailable(int roomNumber)
+    {
+        for (int i = 0; i < Rooms.Count; i++)
+        {
+            Room room = Rooms[i];
+            if (room.Room_Number == roomNumber)
+            {
+                if (room.status == RoomStatus.Unavailable)// change status unavible to available , room work is done
+                {
+                    room.status = RoomStatus.Available;
+                    return true;
+                }
+                return false; // Not in Unavailable state
+            }
+        }
+        return false; // Room not found
+    }
+     //make room avialble use perivious functon inside it
+    public void MakeRoomAvailable1()
+    {
+        Console.Write("Enter room number to make available again: ");
+        if (int.TryParse(Console.ReadLine(), out int roomNumber)) //if room number is right
+        {
+            if (MakeRoomAvailable(roomNumber))
+            {
+                Console.WriteLine("Room {roomNumber} is now available.");// change status unavilable to available
+            }
+            else
+            {
+                Console.WriteLine("Room {roomNumber} is not unavailable or does not exist.");
+              
+              // room number is wrong
+            }
+        }
+        else
+        {
+            Console.WriteLine("Invalid room number.");
+        }
+    }
 }
+
