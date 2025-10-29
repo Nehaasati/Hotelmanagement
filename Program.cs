@@ -12,11 +12,13 @@ while (running)
     Console.WriteLine("2. Show available rooms");
     Console.WriteLine("3. Book a room");
     Console.WriteLine("4. Check out guest");
+    Console.WriteLine("5. Mark room as unavailable");
+    Console.WriteLine("6. Make room available");
     string? input = Console.ReadLine();
     int choice = 0;
-    bool parsed = int.TryParse(input, out choice);
+    bool p = int.TryParse(input, out choice);
 
-    if (!parsed)
+    if (!p)
     {
         Console.WriteLine("Invalid input. Please enter a number.");
         continue;
@@ -67,8 +69,15 @@ while (running)
             case 4:
             recp.CheckOutGuest1();
             break;
+             case 5:
+            recp.MarkRoomUnavailable1();
+            break;
 
-        default:
+            case 6:
+            recp.MakeRoomAvailable1();
+            break;
+
+            default:
             Console.WriteLine("Please choose a valid ");
             break;
     }
