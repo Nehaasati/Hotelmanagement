@@ -1,5 +1,5 @@
 namespace App;
-
+using System.IO; // Required for File operations add 
 using System.Collections.Generic;
 
 public class Reception
@@ -97,7 +97,7 @@ public class Reception
         //  Book the room
         targetRoom.status = RoomStatus.Occupied;
         targetRoom.GuestName = guestName;
-        Console.WriteLine("Room {roomNumber} booked successfully for {guestName}.");
+        Console.WriteLine($"Room {roomNumber} booked successfully for {guestName}.");
     }
     
     // Checks out a guest from a room by room number.
@@ -208,7 +208,7 @@ public class Reception
         }
         return false; // Room not found
     }
-     //make room avialble use perivious functon inside it
+    //make room avialble use perivious functon inside it
     public void MakeRoomAvailable1()
     {
         Console.Write("Enter room number to make available again: ");
@@ -221,8 +221,8 @@ public class Reception
             else
             {
                 Console.WriteLine("Room {roomNumber} is not unavailable or does not exist.");
-              
-              // room number is wrong
+
+                // room number is wrong
             }
         }
         else
@@ -230,5 +230,22 @@ public class Reception
             Console.WriteLine("Invalid room number.");
         }
     }
+    public bool SaveRoomsToFile(string filePath)
+    {
+        
+        {
+            List<string> lines = new List<string>();
+            for (int i = 0; i < Rooms.Count; i++)
+            {
+                Room r = Rooms[i];
+                // Format: RoomNumber,Status,GuestName
+                lines.Add($"{r.Room_Number},{r.status},{r.GuestName}");
+            }
+            File.WriteAllLines(filePath, lines);
+            return true;
+        }
+        
+    } 
+    
 }
 
