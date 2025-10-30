@@ -232,7 +232,7 @@ public class Reception
     }
     public bool SaveRoomsToFile(string filePath)
     {
-        
+        try
         {
             List<string> lines = new List<string>();
             for (int i = 0; i < Rooms.Count; i++)
@@ -244,7 +244,11 @@ public class Reception
             File.WriteAllLines(filePath, lines);
             return true;
         }
-        
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error saving data: {ex.Message}");
+            return false;
+        }
     } 
     
 }
