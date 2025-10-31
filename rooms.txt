@@ -1,0 +1,5 @@
+101,Occupied,neha
+102,Occupied,fatima
+103,Occupied,ayumi
+104,Available,
+105,Unavailable,

@@ -3,6 +3,17 @@ using System;
 using System.Collections.Generic;
 
 Reception recp = new Reception();
+
+//  Try to LOAD saved rooms
+List<Room> loadedRooms = SaveData.LoadRooms();
+
+// If file existed and had data, use it
+if (loadedRooms.Count > 0)
+{
+    recp.Rooms = loadedRooms;
+}
+//  recp already has 5 default rooms 
+
 bool running = true;
 
 while (running)
@@ -14,6 +25,7 @@ while (running)
     Console.WriteLine("4. Check out guest");
     Console.WriteLine("5. Mark room as unavailable");
     Console.WriteLine("6. Make room available");
+    Console.WriteLine("7. Exit"); // Add Exit 
     string? input = Console.ReadLine();
     int choice = 0;
     bool p = int.TryParse(input, out choice);
@@ -76,7 +88,12 @@ while (running)
             case 6:
             recp.MakeRoomAvailable1();
             break;
-
+            case 7: // EXIT
+            // SAVE rooms before quitting
+            SaveData.SaveRooms(recp.Rooms);
+            Console.WriteLine("Data saved successfully. Goodbye!");
+            running = false;
+            break;
             default:
             Console.WriteLine("Please choose a valid ");
             break;
