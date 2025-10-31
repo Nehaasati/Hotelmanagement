@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 public class Reception
 {
-    
+
     public List<Room> Rooms;
 
     public Reception()
@@ -99,11 +99,11 @@ public class Reception
         targetRoom.GuestName = guestName;
         Console.WriteLine($"Room {roomNumber} booked successfully for {guestName}.");
     }
-    
+
     // Checks out a guest from a room by room number.
     // Sets room status to Available and clears guest name.
-    
-    
+
+
     public bool CheckOutGuest(int roomNumber)
     {
         for (int i = 0; i < Rooms.Count; i++)
@@ -230,26 +230,5 @@ public class Reception
             Console.WriteLine("Invalid room number.");
         }
     }
-    public bool SaveRoomsToFile(string filePath)
-    {
-        try
-        {
-            List<string> lines = new List<string>();
-            for (int i = 0; i < Rooms.Count; i++)
-            {
-                Room r = Rooms[i];
-                // Format: RoomNumber,Status,GuestName
-                lines.Add($"{r.Room_Number},{r.status},{r.GuestName}");
-            }
-            File.WriteAllLines(filePath, lines);
-            return true;
-        }
-        catch (Exception ex)
-        {
-            Console.WriteLine($"Error saving data: {ex.Message}");
-            return false;
-        }
-    } 
-    
-}
 
+}
