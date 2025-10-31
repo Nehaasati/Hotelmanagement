@@ -14,7 +14,7 @@ public class Reception
         for (int i = 1; i <= 5; i = i + 1)
         {
             Room room = new Room();
-            room.Room_Number = 100 + i;// rrom number are 101,102...105
+            room.Room_Number = 100 + i;// room number are 101,102...105
             room.status = RoomStatus.Available;
             room.GuestName = "";
             Rooms.Add(room);
@@ -138,7 +138,7 @@ public class Reception
             return;
         }
 
-        if (CheckOutGuest(roomNumber))
+        if (CheckOutGuest(roomNumber))//check room number forcheckout is correct or not
         {
             Console.WriteLine($"Guest checked out from room {roomNumber}.");
         }
@@ -173,7 +173,7 @@ public class Reception
     // if it is free mark room as unavailable
     public void MarkRoomUnavailable1()
     {
-        Console.Write("Enter room number to mark as unavailable (e.g., for maintenance): ");
+        Console.Write("Enter room number to mark as unavailable (e.g., for maintenance): ");//which room be want maintance make it
         if (int.TryParse(Console.ReadLine(), out int roomNumber))
         {
             if (MarkRoomUnavailable(roomNumber))

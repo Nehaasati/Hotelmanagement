@@ -3,7 +3,7 @@ namespace App; // Link or gather this class file with the rest of the classes an
 public class Room
 {
     public int Room_Number;
-    public RoomStatus status;
+    public RoomStatus status;// room status
     public string GuestName ="";// no nullable , empty by default
 
 }

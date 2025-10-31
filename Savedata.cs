@@ -33,7 +33,7 @@ namespace App
 
             using (StreamReader reader = new StreamReader("rooms.txt"))
             {
-                string ? line;
+                string ? line;//add ? its show error if string nullable
                 while ((line = reader.ReadLine()) != null)
                 {
                     string[] parts = line.Split(',');
@@ -41,7 +41,7 @@ namespace App
                      if (parts.Length == 3)
                     {
                         int roomNumber = int.Parse(parts[0]);
-                        RoomStatus status = (RoomStatus)Enum.Parse(typeof(RoomStatus), parts[1]);
+                        RoomStatus status = (RoomStatus)Enum.Parse(typeof(RoomStatus), parts[1]);//room status
                         string guestName = parts[2];
 
                         Room room = new Room();
