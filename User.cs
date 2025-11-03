@@ -2,11 +2,11 @@ namespace App;
 
 
 // a user class to manage logning in and loggning out.
-class User
+public class User
 {
   
-   string? UserEmail; // user's emailadress. 
-   string? _password; // //  user's password. 
+   public string? UserEmail; // user's emailadress. 
+   public string? _password; // //  user's password. 
 
   public User(string? useremail, string? password) // a constructor 
   {
