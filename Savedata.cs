@@ -3,8 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 
-namespace App
-{
+namespace App;
     // a class to store all the system data
 // Methods here are static in order to call them directly, no need for an object.
     public static class SaveData
@@ -55,4 +54,3 @@ namespace App
             return rooms;
         }
     }
-}
