@@ -70,13 +70,8 @@ public static class SaveData
     {
     List<User> users = new List<User>();
 
-    if (!File.Exists("users.txt"))
-    {
-        // Create default user on first run
-        users.Add(new User("neha@gmail.com", "password"));
-        SaveUsers(users);
-        return users;
-    }
+    if (!File.Exists("users.txt"))return users;
+    
 
     using (StreamReader reader = new StreamReader("users.txt"))
     {
