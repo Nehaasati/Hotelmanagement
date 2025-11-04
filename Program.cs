@@ -26,17 +26,17 @@ while (true)
     Console.WriteLine("2. Login to existing account");
     Console.WriteLine("3. exit");
     Console.Write("Choose an option: ");
-
+    // choose option
     string? choiceInput = Console.ReadLine();
     if (!int.TryParse(choiceInput, out int choice))
     {
         Console.WriteLine("Invalid input.");
         continue;
     }
-
+     // for exit user choose option 3
     if (choice == 3)
     {
-        SaveData.SaveRooms(recp.Rooms);
+        SaveData.SaveRooms(recp.Rooms);// data save in room
         Console.WriteLine("Goodbye!");
         break;
     }
@@ -86,22 +86,22 @@ while (true)
         Console.Write("Password: ");
         string? inputPass = Console.ReadLine();
 
-        if (string.IsNullOrEmpty(inputEmail) || string.IsNullOrEmpty(inputPass))
+        if (string.IsNullOrEmpty(inputEmail) || string.IsNullOrEmpty(inputPass))//check email and password are not empty
         {
             Console.WriteLine(" Fields cannot be empty.");
             continue;
         }
-
+        // Attempt to find a matching user account
         User? foundUser = null;
         foreach (User u in allUsers)
         {
-            if (u.UserEmail == inputEmail && u._password == inputPass)
+            if (u.UserEmail == inputEmail && u._password == inputPass)// check useremail and password with stor data
             {
                 foundUser = u;
                 break;
             }
         }
-
+        //check if-else stmt user are register or not
         if (foundUser == null)
         {
             Console.WriteLine("Invalid email or password.");
@@ -112,22 +112,22 @@ while (true)
         Console.WriteLine($"\n Welcome, {currentUser.UserEmail}!");
 
 
-
+        //after login user able to see option for room availablity
 
 
 
         bool running = true;
-
+         // show all option
         while (running)
         {
             Console.WriteLine("\n=== Hotel Room Manager ===");
-            Console.WriteLine("1. Show occupied rooms");
-            Console.WriteLine("2. Show available rooms");
-            Console.WriteLine("3. Book a room");
-            Console.WriteLine("4. Check out guest");
-            Console.WriteLine("5. Mark room as unavailable");
-            Console.WriteLine("6. Make room available");
-            Console.WriteLine("7. Exit"); // Add Exit 
+            Console.WriteLine("1. Show occupied rooms");// show occupied room
+            Console.WriteLine("2. Show available rooms");//show available room
+            Console.WriteLine("3. Book a room");  // from this otption you book room
+            Console.WriteLine("4. Check out guest");  // for checkout
+            Console.WriteLine("5. Mark room as unavailable");// for this option we make room unaviblable for maintance
+            Console.WriteLine("6. Make room available");// again unavailbale room become available
+            Console.WriteLine("7. Exit"); 
             string? input = Console.ReadLine();
             
             if (int.TryParse(input, out int roomChoice))
@@ -141,7 +141,7 @@ while (true)
                 case 1:
                     {
                         List<Room> occupied = recp.GetOccupiedRooms();
-                        if (occupied.Count == 0)
+                        if (occupied.Count == 0)  //check occuiped room is empty or not
                         {
                             Console.WriteLine("No guests staying right now.");
                         }
@@ -151,7 +151,7 @@ while (true)
                             for (int i = 0; i < occupied.Count; i++)
                             {
                                 Room r = occupied[i];
-                                Console.WriteLine($"Room {r.Room_Number} – Guest: {r.GuestName}");
+                                Console.WriteLine($"Room {r.Room_Number} – Guest: {r.GuestName}");// show guest detail name and roomnumber
                             }
                         }
                         break;
@@ -167,7 +167,7 @@ while (true)
                         else
                         {
                             Console.WriteLine("Available rooms:");
-                            for (int i = 0; i < available.Count; i++)
+                            for (int i = 0; i < available.Count; i++)//print the availble room
                             {
                                 Room r = available[i];
                                 Console.WriteLine($"Room {r.Room_Number}");
@@ -179,14 +179,14 @@ while (true)
                     recp.BookGuest(); // Call the method
                     break;
                 case 4:
-                    recp.CheckOutGuest1();
+                    recp.CheckOutGuest1();//chekout guest
                     break;
                 case 5:
-                    recp.MarkRoomUnavailable1();
+                    recp.MarkRoomUnavailable1();// make room unavailable
                     break;
 
                 case 6:
-                    recp.MakeRoomAvailable1();
+                    recp.MakeRoomAvailable1();// make room again available
                     break;
                 case 7: // EXIT
                         // SAVE rooms before quitting
