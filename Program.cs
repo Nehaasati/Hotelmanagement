@@ -5,15 +5,51 @@ using System.Collections.Generic;
 Reception recp = new Reception();
 
 //  Try to LOAD saved rooms
+
 List<Room> loadedRooms = SaveData.LoadRooms();
+//load user
+List<User> allUsers = SaveData.LoadUsers();
 
 // If file existed and had data, use it
 if (loadedRooms.Count > 0)
 {
     recp.Rooms = loadedRooms;
 }
-//  recp already has 5 default rooms 
+//  we add user here recp already has 5 rooms 
+User? loggedInUser = null;
 
+//  LOGIN LOOP
+while (loggedInUser == null)
+{
+    Console.WriteLine("\n=== Hotel Management System ===");
+    Console.WriteLine("Please log in to continue.");
+    Console.Write("Email: ");
+    string? inputEmail = Console.ReadLine();
+    Console.Write("Password: ");
+    string? inputPass = Console.ReadLine();
+
+    if (string.IsNullOrEmpty(inputEmail) || string.IsNullOrEmpty(inputPass))
+    {
+        Console.WriteLine("Email and password cannot be empty.");
+        continue;
+    }
+
+    // Check against all users
+    foreach (User u in allUsers)
+    {
+        if (u.UserEmail == inputEmail && u._password == inputPass)
+        {
+            loggedInUser = u;
+            Console.WriteLine($"Login successful! Welcome, {u.UserEmail}");
+            break;
+        }
+    }
+
+    if (loggedInUser == null)
+    {
+        Console.WriteLine($"Invalid email or password. Please try again.");
+    }
+}
 bool running = true;
 
 while (running)
@@ -98,7 +134,13 @@ while (running)
             Console.WriteLine("Please choose a valid ");
             break;
     }
-
+    // If user logged out, go back to login screen
+    if (loggedInUser == null && running)
+    {
+        // Reload users in case new accounts were added (optional)
+        allUsers = SaveData.LoadUsers();
+        // The outer while loop will restart login
+    }
     
 }
 

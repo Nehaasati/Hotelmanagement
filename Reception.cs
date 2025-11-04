@@ -29,7 +29,7 @@ public class Reception
         for (int i = 0; i < Rooms.Count; i = i + 1)
         {
             Room room = Rooms[i];
-            if (room.status == RoomStatus.Occupied)
+            if (room.status == RoomStatus.Occupied)//check status of room is ocupied or not
             {
                 occupied.Add(room);
             }
