@@ -65,6 +65,7 @@ public static class SaveData
         }
     }
     
+    
      //Load users from "users.txt"
     public static List<User> LoadUsers()
     {
@@ -72,14 +73,14 @@ public static class SaveData
 
     if (!File.Exists("users.txt"))return users;
     
-
+    // Read "users.txt" file
     using (StreamReader reader = new StreamReader("users.txt"))
     {
         string? line;
         while ((line = reader.ReadLine()) != null)
         {
             string[] parts = line.Split(',');
-            if (parts.Length == 2)
+            if (parts.Length == 2)// Expect two parts: email and password
             {
                 string? email = parts[0];
                 string? password = parts[1];

@@ -130,7 +130,7 @@ while (true)
             Console.WriteLine("7. Exit"); 
             string? input = Console.ReadLine();
             
-            if (int.TryParse(input, out int roomChoice))
+            if (!int.TryParse(input, out int roomChoice))
             {
                 Console.WriteLine("Invalid input. Please enter a number.");
                 continue;
