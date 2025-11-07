@@ -15,109 +15,15 @@ if (loadedRooms.Count > 0)
 {
     recp.Rooms = loadedRooms;
 }
-User? currentUser = null;
+   User? currentUser = null;
 
 
 while (true)
 {
-    // Registration
-    Console.WriteLine(" Hotel Management System");
-    Console.WriteLine("1. Register a new account");
-    Console.WriteLine("2. Login to existing account");
-    Console.WriteLine("3. exit");
-    Console.Write("Choose an option: ");
-    // choose option
-    string? choiceInput = Console.ReadLine();
-    if (!int.TryParse(choiceInput, out int choice))
+    if (currentUser != null)
     {
-        Console.WriteLine("Invalid input.");
-        continue;
-    }
-     // for exit user choose option 3
-    if (choice == 3)
-    {
-        SaveData.SaveRooms(recp.Rooms);// data save in room
-        Console.WriteLine("Goodbye!");
-        break;
-    }
-
-    // REGISTRATION 
-    if (choice == 1)
-    {
-        Console.Write("Enter your email: ");//enter email id
-        string? email = Console.ReadLine();
-        Console.Write("Enter a password: ");//enter password
-        string? password = Console.ReadLine();
-
-        if (string.IsNullOrEmpty(email) || string.IsNullOrEmpty(password))// if email and password empty
-        {
-            Console.WriteLine(" Email and password cannot be empty.");
-            continue;
-        }
-
-        // Check if email already exists
-        bool emailExists = false;
-        foreach (User u in allUsers)
-        {
-            if (u.UserEmail == email)
-            {
-                emailExists = true;
-                break;
-            }
-        }
-
-        if (emailExists)
-        {
-            Console.WriteLine(" This email is already registered.");
-        }
-        else
-        {
-            allUsers.Add(new User(email, password));
-            SaveData.SaveUsers(allUsers);
-            Console.WriteLine(" Registration successful! You can now log in.");
-        }
-        continue; // Go back 
-    }
-    //  LOGIN as user
-    if (choice == 2)
-    {
-        Console.Write("Email: ");
-        string? inputEmail = Console.ReadLine();
-        Console.Write("Password: ");
-        string? inputPass = Console.ReadLine();
-
-        if (string.IsNullOrEmpty(inputEmail) || string.IsNullOrEmpty(inputPass))//check email and password are not empty
-        {
-            Console.WriteLine(" Fields cannot be empty.");
-            continue;
-        }
-        // Attempt to find a matching user account
-        User? foundUser = null;
-        foreach (User u in allUsers)
-        {
-            if (u.UserEmail == inputEmail && u._password == inputPass)// check useremail and password with stor data
-            {
-                foundUser = u;
-                break;
-            }
-        }
-        //check if-else stmt user are register or not
-        if (foundUser == null)
-        {
-            Console.WriteLine("Invalid email or password.");
-            continue;
-        }
-
-        currentUser = foundUser;
-        Console.WriteLine($"\n Welcome, {currentUser.UserEmail}!");
-
-
-        //after login user able to see option for room availablity
-
-
-
         bool running = true;
-         // show all option
+
         while (running)
         {
             Console.WriteLine("\n=== Hotel Room Manager ===");
@@ -127,9 +33,10 @@ while (true)
             Console.WriteLine("4. Check out guest");  // for checkout
             Console.WriteLine("5. Mark room as unavailable");// for this option we make room unaviblable for maintance
             Console.WriteLine("6. Make room available");// again unavailbale room become available
-            Console.WriteLine("7. Exit"); 
+            Console.WriteLine("7. logout");// logout 
+            Console.WriteLine("8. Exit");// exit from progarm
             string? input = Console.ReadLine();
-            
+
             if (!int.TryParse(input, out int roomChoice))
             {
                 Console.WriteLine("Invalid input. Please enter a number.");
@@ -188,24 +95,116 @@ while (true)
                 case 6:
                     recp.MakeRoomAvailable1();// make room again available
                     break;
-                case 7: // EXIT
-                        // SAVE rooms before quitting
-                    SaveData.SaveRooms(recp.Rooms);
-                    Console.WriteLine("Data saved successfully. Goodbye!");
+                case 7: //logout
+                    currentUser = null;
+                    Console.WriteLine("You have been logged out.");
                     running = false;
                     break;
+                case 8: // EXIT ENTIRE PROGRAM
+                    SaveData.SaveRooms(recp.Rooms);// save room
+                    SaveData.SaveUsers(allUsers); // save users to file
+                    Console.WriteLine("Data saved successfully. Goodbye!");
+                    return; // 
+
                 default:
-                    Console.WriteLine("Please choose a valid ");
+                    Console.WriteLine("Please choose a valid option.");
                     break;
             }
-            // If user logged out, go back to login screen
-            if (currentUser == null && running)
+        }
+    }
+
+
+       else {
+
+        Console.WriteLine(" Hotel Management System");
+        Console.WriteLine("1. Register a new account");//new customer registration
+        Console.WriteLine("2. Login to existing account");//login register customer
+        Console.WriteLine("3. exit");
+        Console.Write("Choose an option: ");
+        // choose option
+        string? choiceInput = Console.ReadLine();
+        if (!int.TryParse(choiceInput, out int choice))
+        {
+            Console.WriteLine("Invalid input.");
+            continue;
+        }
+        // for exit user choose option 3
+        if (choice == 3)
+        {
+            SaveData.SaveRooms(recp.Rooms);// data save in room
+            Console.WriteLine("Goodbye!");
+            break;
+        }
+
+        // REGISTRATION 
+        if (choice == 1)
+        {
+            Console.Write("Enter your email: ");//enter email id
+            string? email = Console.ReadLine();
+            Console.Write("Enter a password: ");//enter password
+            string? password = Console.ReadLine();
+
+            if (string.IsNullOrEmpty(email) || string.IsNullOrEmpty(password))// if email and password empty
             {
-                // Reload users in case new accounts were added (optional)
-                allUsers = SaveData.LoadUsers();
-                // The outer while loop will restart login
+                Console.WriteLine(" Email and password cannot be empty.");
+                continue;
             }
 
+            // Check if email already exists
+            bool emailExists = false;
+            foreach (User u in allUsers)
+            {
+                if (u.UserEmail == email)
+                {
+                    emailExists = true;
+                    break;
+                }
+            }
+
+            if (emailExists)//email how  already registered
+            {
+                Console.WriteLine(" This email is already registered.");
+            }
+            else
+            {
+                allUsers.Add(new User(email, password));
+                SaveData.SaveUsers(allUsers);
+                Console.WriteLine(" Registration successful! You can now log in.");
+            }
+            continue; // Go back 
+        }
+        //  LOGIN as user
+        else if (choice == 2)
+        {
+            Console.Write("Email: ");
+            string? inputEmail = Console.ReadLine();
+            Console.Write("Password: ");
+            string? inputPass = Console.ReadLine();
+
+            if (string.IsNullOrEmpty(inputEmail) || string.IsNullOrEmpty(inputPass))//check email and password are not empty
+            {
+                Console.WriteLine(" Fields cannot be empty.");
+                continue;
+            }
+            // Attempt to find a matching user account
+            User? foundUser = null;
+            foreach (User u in allUsers)
+            {
+                if (u.UserEmail == inputEmail && u._password == inputPass)// check useremail and password with stor data
+                {
+                    foundUser = u;
+                    break;
+                }
+            }
+            //check if-else stmt user are register or not
+            if (foundUser == null)
+            {
+                Console.WriteLine("Invalid email or password.");
+                continue;
+            }
+
+            currentUser = foundUser;
+            Console.WriteLine($"\n Welcome, {currentUser.UserEmail}!");
         }
     }
 }

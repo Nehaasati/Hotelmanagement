@@ -12,11 +12,12 @@ public static class SaveData
     public static void SaveRooms(List<Room> rooms)
     {
         using (StreamWriter writer = new StreamWriter("rooms.txt", append: false))// the append is false because when I tried it "True" but all the data duplicate when ever we add a new data.
-        {
+        {                                                                           //append: false means: replace the entire file every time 
+                                                                                   //streamWriter -its create and overwrite room.txt
             foreach (Room room in rooms)
             {
-                // Format: RoomNumber,Status,GuestName
-                writer.WriteLine($"{room.Room_Number},{room.status},{room.GuestName}");
+                // Format: RoomNumber,Status,GuestName(Each room is written as a commaseparated line: RoomNumber,Status,GuestName.)
+                writer.WriteLine($"{room.Room_Number},{room.status},{room.GuestName}");//WriteLine() writes one line of text
             }
         }
     }
@@ -30,12 +31,12 @@ public static class SaveData
         if (!File.Exists("rooms.txt"))
             return rooms;
 
-        using (StreamReader reader = new StreamReader("rooms.txt"))
+        using (StreamReader reader = new StreamReader("rooms.txt"))//StreamReader : it reads text from a file, one line at a time.
         {
             string? line;//add ? its show error if string nullable
             while ((line = reader.ReadLine()) != null)
             {
-                string[] parts = line.Split(',');
+                string[] parts = line.Split(',');//Each line is expected to contain three commaseparated values: RoomNumber, Status, GuestName.
                 // We expect: RoomNumber, Status, GuestName (3 parts)
                 if (parts.Length == 3)
                 {
@@ -53,10 +54,10 @@ public static class SaveData
         }
         return rooms;
     }
-     // 
+    //Saves a list of User objects to the file "users.txt".
     public static void SaveUsers(List<User> users)
     {
-        using (StreamWriter writer = new StreamWriter("users.txt", append: false))
+        using (StreamWriter writer = new StreamWriter("users.txt", append: false))//WriteLine() writes one line of text
         {
             foreach (User user in users)
             {
@@ -67,6 +68,7 @@ public static class SaveData
     
     
      //Load users from "users.txt"
+      
     public static List<User> LoadUsers()
     {
     List<User> users = new List<User>();
@@ -79,7 +81,7 @@ public static class SaveData
         string? line;
         while ((line = reader.ReadLine()) != null)
         {
-            string[] parts = line.Split(',');
+            string[] parts = line.Split(',');//Each user is written as a comma-separated line: Email,Password.
             if (parts.Length == 2)// Expect two parts: email and password
             {
                 string? email = parts[0];

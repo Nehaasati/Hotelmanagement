@@ -1,7 +1,7 @@
  Hotel Room Management System
 
  About:
-This Hotel Room Management System  user registration and login so only authorized users can access the system and allows hotel receptionists to manage room bookings, check-outs, and room maintenance status (available, occupied, or unavailable). 
+This Hotel Room Management System  user registration and login so only authorized users can access the system and allows hotel reception to manage room bookings, check-outs, and room maintenance status (available, occupied, or unavailable). 
 
  Properties:
 This Hotel Management System is written in C# using .NET with the Object-Oriented Programming (OOP). The system consists of 10 files organized under the App namespace.

@@ -15,12 +15,4 @@ public class User
     _password = password; // assign the input password 
   }
 
-
-
-  public bool TryLogin(string? useremail, string? password) // a boolean verification method to be called where want to check if the useremail and password are true. 
-
-  {
-    return useremail == UserEmail && password == _password;
-  }
-
 }

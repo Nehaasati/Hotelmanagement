@@ -1,5 +1,5 @@
 101,Occupied,neha
 102,Occupied,fatima
 103,Available,
-104,Available,
+104,Unavailable,
 105,Unavailable,
